@@ -10,7 +10,6 @@ __maintainer__ = "Dagy Tran"
 __version__ = "0.1 beta"
 __status__ = "Development"
 
-
 import sys
 from random import randint
 import matplotlib.pyplot as plt
@@ -49,21 +48,21 @@ def save_statistics(output_path, stats_dictionary):
         output_file.write('\n'.join(lines))
 
 
-def redistribute(stats_dictionary, key):
+def redistribute(stats_dictionary, selected_student):
     new_stats = {}
     number_of_students = len(stats_dictionary)
-    if key not in stats_dictionary:
-        print('Error: User not in dictionary.')
+    if selected_student not in stats_dictionary:
+        print('Error: User not in dictionary.', file=sys.stderr)
         return stats_dictionary
 
-    student_points = stats_dictionary[key][1]
+    student_points = stats_dictionary[selected_student][1]
     if student_points < number_of_students - 1:
-        print('Warning: User {} has not enough points to redistribute. Points {}. Returning unchanged stats'.format(key,
-                                                                                                                    student_points))
-        return stats_dictionary
+        print('Warning: User {} has not enough points to redistribute. Points {}.'.format(selected_student,
+                                                                                          student_points))
+        return redistribute(stats_dictionary, selected_student)
     else:
         for k, (count, points) in stats_dictionary.items():
-            if k != key:
+            if k != selected_student:
                 new_stats[k] = (count, points + 1)
             else:
                 new_stats[k] = (count + 1, points - (number_of_students - 1))
@@ -100,17 +99,19 @@ def plot_stats(stats):
 
     plt.figure(1)
     plt.subplot(211)
-    plt.bar([i for i in range(len(stats))], counts, tick_label=keys)
+    plt.bar(keys, counts)
     plt.xticks([i for i in range(len(stats))], keys, rotation=-45)
     plt.grid()
-    plt.ylabel("Selected Count")
+    plt.ylabel("Selected Count [-]")
     plt.title("Selected Count")
 
+    points_sum = float(sum(points))
     plt.subplot(212)
-    plt.pie(points, labels=keys, autopct='%1.0f%%')
+    plt.bar(keys, list(map(lambda x: 2 * float(x) * 100 / points_sum, points)))
+    plt.xticks([i for i in range(len(stats))], keys, rotation=-45)
     plt.title("Probabilities")
+    plt.ylabel("Probability [%]")
     plt.tight_layout()
-    plt.axis('equal')
     plt.show()
 
 
