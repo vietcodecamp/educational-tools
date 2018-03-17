@@ -16,6 +16,7 @@ Fewer points mean a smaller probability of being selected.
 The values should be tab-separated, thus the format should be:
 `[Name space separated ]\t[selected count]\t[points]\n`
 
+
 ### Example input/output:
 ```
 Arron Warde 0   27
