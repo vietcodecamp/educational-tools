@@ -78,8 +78,6 @@ def select_student(stats_dict):
 
     selected_student = ""
     selected_index = randint(0, cumulative_sum)
-    print(cumulative_sum)
-    print(selected_index)
     prefix_sum = 0
     for key, (count, points) in stats_dict.items():
         prefix_sum += points
@@ -108,15 +106,15 @@ def plot_stats(stats):
     plt.ylabel("Selected Count")
     plt.title("Selected Count")
 
-    plt.subplot(223)
+    plt.subplot(212)
     plt.pie(points, labels=keys, autopct='%1.0f%%')
     plt.title("Probabilities")
     plt.tight_layout()
+    plt.axis('equal')
     plt.show()
 
 
 def main(argv):
-    print(argv)
     if len(argv) == 1:
         print("Input file is needed.")
         return
@@ -124,9 +122,11 @@ def main(argv):
         file_path = argv[1]
         statistics_dictionary = load_statistics(file_path)
         selected_student = select_student(statistics_dictionary)
-        print(selected_student)
         new_statistics_dictionary = redistribute(statistics_dictionary, selected_student)
-        plot_stats(new_statistics_dictionary)
+        print(selected_student)
+
+        if '-p' in argv or '--plot' in argv:
+            plot_stats(new_statistics_dictionary)
 
         if '-s' in argv or '--save' in argv:
             save_statistics(file_path, new_statistics_dictionary)
