@@ -33,7 +33,7 @@ Danya Marusyak  1   17
 #### Plot:
 The first plot shows how many times were the students selected. 
 The second plot shows the students probabilities of being selected in the next round.
-![stats_plot](./vyvolavac/stats_plot.png "Example stats plot")
+![stats_plot](./stats_plot.png "Example stats plot")
 
 
 ### Usage:
