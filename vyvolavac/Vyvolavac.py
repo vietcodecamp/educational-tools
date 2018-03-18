@@ -59,6 +59,7 @@ def redistribute(stats_dictionary, selected_student):
     if student_points < number_of_students - 1:
         print('Warning: User {} has not enough points to redistribute. Points {}.'.format(selected_student,
                                                                                           student_points))
+        selected_student = select_student(stats_dictionary)
         return redistribute(stats_dictionary, selected_student)
     else:
         for k, (count, points) in stats_dictionary.items():

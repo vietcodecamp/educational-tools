@@ -1,10 +1,10 @@
-Arron Warde
-Mattie Damsell
-Rois Corkett
-Ginnifer Ruvel
-Jarrad Ramelet
-Idaline Gipp
-Samaria Trevino
-Jourdan Kernar
-Joete Cardinal
-Danya Marusyak
+Arron Warde	0	21
+Mattie Damsell	1	11
+Rois Corkett	0	21
+Ginnifer Ruvel	0	21
+Jarrad Ramelet	0	21
+Idaline Gipp	0	21
+Samaria Trevino	0	21
+Jourdan Kernar	0	21
+Joete Cardinal	0	21
+Danya Marusyak	0	21
