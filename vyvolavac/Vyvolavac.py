@@ -3,7 +3,7 @@
     Vyvolavac.py: Randomly selects a student with a certain probability.
     1st argument input_path - input path of student names with (or without) statistics, input file should contain
     one student per line and the statistics are tab delimited
-    2nd argument (optional): output_path  - output path for new statistics  
+    2nd argument (optional): output_path  - output path for new statistics
 """
 
 __maintainer__ = "Dagy Tran"
@@ -17,24 +17,24 @@ import matplotlib.pyplot as plt
 
 def load_statistics(input_path):
     stats = {}
-    should_reset = False
+    should_set_default_stats = False
     with open(input_path, 'r') as input_file:
         for line in input_file:
             split_line = line.split('\t')
 
             if len(split_line) == 1:
                 stats[split_line[0].strip()] = (0, 0)
-                should_reset = True
+                should_set_default_stats = True
             elif len(split_line) == 3:
                 stats[split_line[0]] = (int(split_line[1]), int(split_line[2]))
 
-    if should_reset:
-        stats = reset_stats(stats, 2)
+    if should_set_default_stats:
+        stats = set_default_stats(stats, 2)
 
     return stats
 
 
-def reset_stats(stats_dict, multiplier=2):
+def set_default_stats(stats_dict, multiplier=2):
     number_of_students = len(stats_dict)
 
     for key, value in stats_dict.items():
@@ -108,11 +108,12 @@ def plot_stats(stats):
 
     points_sum = float(sum(points))
     plt.subplot(212)
-    plt.bar(keys, list(map(lambda x: 2 * float(x) * 100 / points_sum, points)))
+    plt.bar(keys, list(map(lambda x: float(x) * 100 / points_sum, points)))
     plt.xticks([i for i in range(len(stats))], keys, rotation=-45)
     plt.title("Probabilities")
     plt.ylabel("Probability [%]")
     plt.tight_layout()
+    plt.grid()
     plt.show()
 
 
